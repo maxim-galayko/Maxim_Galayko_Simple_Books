@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
+    <entity name="BookEntity" representedClassName=".BookEntity" syncable="YES">
+        <attribute name="amazonLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rank" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GenreEntity" inverseName="books" inverseEntity="GenreEntity" syncable="YES"/>
+    </entity>
+    <entity name="GenreEntity" representedClassName=".GenreEntity" syncable="YES">
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="encodedName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookEntity" inverseName="genres" inverseEntity="BookEntity" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BookEntity" positionX="-4005" positionY="-1165" width="128" height="148"/>
+        <element name="GenreEntity" positionX="-3818" positionY="-1143" width="128" height="88"/>
+    </elements>
+</model>
