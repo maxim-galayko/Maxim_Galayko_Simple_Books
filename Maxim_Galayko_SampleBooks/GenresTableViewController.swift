@@ -10,56 +10,65 @@ import UIKit
 
 class GenresTableViewController: UITableViewController {
     
-    var authorized: Bool!
-    var dataSource: BestSellersDataSourceModelProtocol = BestSellersDataSourceModel()
+    private var bestSellersModel = BestSellersDataSourceProvider.bestSellersDataSourceModel()
+    private var dataSource: [GenresModel] = []
+    
+    private let genresReuseIdentifier = "GenresReuseIdentifier"
+    private let bestSellersSegueIdentifier = "GenresToBestSellersStoryboardSegueIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        dataSource.genres { genres in
-            print(genres)
-        }
-        
-        dataSource.genres { genres in
-            self.dataSource.booksWithGenre(genres!.first!) { books in
-                print(books)
-            }
-        }
+        updateDependencies()
+        fetchGenres()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
+    private func fetchGenres() {
+        bestSellersModel.genres { genres in
+            if let genres = genres {
+                self.dataSource = genres
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     // MARK: - Table view data source
+    
+    private func updateDependencies() {
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: genresReuseIdentifier)
+    }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 10
+        return dataSource.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(genresReuseIdentifier, forIndexPath: indexPath)
+        cell.accessoryType = .DisclosureIndicator
 
-       
-
-        return UITableViewCell()
+        cell.textLabel?.text = dataSource[indexPath.row].displayName
+        return cell
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier(bestSellersSegueIdentifier, sender: self)
     }
-    */
+    
+    // MARK: - Segue
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let bestSellersController = segue.destinationViewController as? BestSellersTableViewController {
+            bestSellersController.bestSellersModel = bestSellersModel
+            bestSellersController.genre = dataSource[tableView.indexPathForSelectedRow!.row]
+        }
+    }
 
 }

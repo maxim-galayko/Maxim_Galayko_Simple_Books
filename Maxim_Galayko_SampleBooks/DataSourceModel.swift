@@ -82,3 +82,13 @@ class CachedBestSellersDataSourceModel: BestSellersDataSourceModelProtocol {
         
     }
 }
+
+
+class BestSellersDataSourceProvider {
+    class func bestSellersDataSourceModel() -> BestSellersDataSourceModelProtocol {
+        if Reachability.isConnectedToNetwork() {
+            return BestSellersDataSourceModel()
+        }
+        return CachedBestSellersDataSourceModel()
+    }
+}
