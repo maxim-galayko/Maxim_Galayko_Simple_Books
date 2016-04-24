@@ -9,8 +9,24 @@
 import UIKit
 import CoreData
 
-class CoreDataManager: NSObject {
+protocol CoreDataManagerProtocol {
+    func saveContextChanges()
+    
+    var managedObjectModel: NSManagedObjectModel { get }
+    var persistentStoreCoordinator: NSPersistentStoreCoordinator { get }
+    var managedObjectContext: NSManagedObjectContext { get }
+}
+
+class CoreDataManagerProvider {
+    static var sharedManager: CoreDataManagerProtocol = CoreDataManager()
+}
+
+class CoreDataManager: NSObject, CoreDataManagerProtocol {
     static let storageName = "books"
+    
+    private override init() {
+        super.init()
+    }
     
     func saveContextChanges() {
         guard managedObjectContext.hasChanges || savingManagedObjectContext.hasChanges else {
@@ -49,7 +65,7 @@ class CoreDataManager: NSObject {
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("\(storageName).sqlite")
 
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true])
         } catch {
             fatalError("Persistent store error: \(error)")
         }

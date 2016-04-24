@@ -19,4 +19,12 @@ class GenresModel {
         self.displayName = displayName
         self.encodedName = encodedName
     }
+    
+    init?(entity: GenreEntity) {
+        guard let displayName = entity.displayName, encodedName = entity.encodedName else {
+            return
+        }
+        self.displayName = displayName
+        self.encodedName = encodedName
+    }
 }

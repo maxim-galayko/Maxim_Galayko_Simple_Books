@@ -11,7 +11,9 @@ import CoreData
 
 
 class GenreEntity: NSManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
-
+    
+    func fillWithGenre(genre: GenresModel) {
+        displayName = genre.displayName
+        encodedName = genre.encodedName
+    }
 }

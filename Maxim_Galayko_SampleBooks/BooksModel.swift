@@ -26,4 +26,17 @@ class BooksModel {
         self.rank = rank
         self.amazonLink = amazonLink
     }
+    
+    init?(entity: BookEntity) {
+        guard let title = entity.title, author = entity.author, imageLink = entity.imageLink,
+            rank = entity.rank, amazonLink = entity.amazonLink else {
+                return nil
+        }
+        self.title = title
+        self.author = author
+        self.imageLink = imageLink
+        self.rank = rank.integerValue
+        self.amazonLink = amazonLink
+    }
+    
 }

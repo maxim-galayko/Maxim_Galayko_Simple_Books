@@ -30,12 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
-    }
-
     func applicationWillTerminate(application: UIApplication) {
-        // save context
+        CoreDataManagerProvider.sharedManager.saveContextChanges()
     }
-
 }
 

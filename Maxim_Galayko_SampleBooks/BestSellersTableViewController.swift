@@ -63,6 +63,11 @@ class BestSellersTableViewController: UITableViewController {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
+        if let bookDetailsController = segue.destinationViewController as? BookDetailsViewController {
+            let book = dataSource[tableView.indexPathForSelectedRow!.row]
+            bookDetailsController.book = book
+            bookDetailsController.genre = genre
+            bookDetailsController.imageProvider = imageProvider
+        }
     }
 }

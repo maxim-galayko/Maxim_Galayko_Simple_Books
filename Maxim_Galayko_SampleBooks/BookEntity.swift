@@ -12,6 +12,12 @@ import CoreData
 
 class BookEntity: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
+    func fillWithBook(book: BooksModel) {
+        amazonLink = book.amazonLink
+        author = book.author
+        imageLink = book.imageLink
+        rank = book.rank
+        title = book.title
+    }
 
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol BestSellersDataSourceModelProtocol {
     func genres(completion: (genres: [GenresModel]?) -> Void)
@@ -91,10 +92,56 @@ class OnlineBestSellersDataSourceModel: BestSellersDataSourceModelProtocol {
 }
 
 class OfflineBestSellersDataSourceModel: BestSellersDataSourceModelProtocol {
+    private let manager = CoreDataManagerProvider.sharedManager
+    private var genres: [GenresModel]?
+    private var books: [String: [BooksModel]] = [:]
+    
     func genres(completion: (genres: [GenresModel]?) -> Void) {
-        
+        if let _ = genres {
+            completion(genres: genres)
+            return
+        }
+        fetchGenres(completion)
     }
+    
     func booksWithGenre(genre: GenresModel, completion: (books: [BooksModel]?) -> Void) {
-        
+        if let books = books[genre.encodedName] {
+            completion(books: books)
+            return
+        }
+        fetchBooks(genre, completion: completion)
+    }
+    
+    // MARK: - Private
+    
+    private func fetchGenres(completion: (genres: [GenresModel]?) -> Void) {
+        let fetchRequest = NSFetchRequest(entityName: "GenreEntity")
+        var fetchedGenres: [GenresModel] = []
+        if let cdGenres = try? manager.managedObjectContext.executeFetchRequest(fetchRequest) as? [GenreEntity] {
+            for cdGenre in cdGenres! {
+                if let genre = GenresModel(entity: cdGenre) {
+                    fetchedGenres.append(genre)
+                }
+            }
+            if fetchedGenres.isEmpty == false {
+                genres = fetchedGenres
+            }
+        }
+        completion(genres: genres)
+    }
+    
+    private func fetchBooks(genre: GenresModel, completion: (books: [BooksModel]?) -> Void) {
+        let fetchRequest = NSFetchRequest(entityName: "GenreEntity")
+        fetchRequest.predicate = NSPredicate(format: "encodedName == %@", genre.encodedName)
+        if let genres = try? manager.managedObjectContext.executeFetchRequest(fetchRequest) as? [GenreEntity] where genres!.count > 0, let bookEntities = genres!.first!.books as? Set<BookEntity> {
+            var fetchedBooks: [BooksModel] = []
+            for bookEntity in bookEntities {
+                if let book = BooksModel(entity: bookEntity) {
+                    fetchedBooks.append(book)
+                }
+            }
+            books[genre.encodedName] = fetchedBooks
+        }
+        completion(books: books[genre.encodedName])
     }
 }
