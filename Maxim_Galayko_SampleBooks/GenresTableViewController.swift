@@ -10,7 +10,7 @@ import UIKit
 
 class GenresTableViewController: UITableViewController {
     
-    private var bestSellersModel = BestSellersDataSourceProvider.bestSellersDataSourceModel()
+    private var bestSellersModel = BestSellersDataSourceProvider.dataSourceModel()
     private var dataSource: [GenresModel] = []
     
     private let genresReuseIdentifier = "GenresReuseIdentifier"
@@ -18,7 +18,7 @@ class GenresTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateDependencies()
+        prepareTableView()
         fetchGenres()
     }
 
@@ -37,7 +37,7 @@ class GenresTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    private func updateDependencies() {
+    private func prepareTableView() {
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: genresReuseIdentifier)
     }
 
@@ -48,7 +48,6 @@ class GenresTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(genresReuseIdentifier, forIndexPath: indexPath)
