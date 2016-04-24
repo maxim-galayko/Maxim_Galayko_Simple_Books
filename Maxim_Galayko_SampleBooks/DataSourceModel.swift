@@ -13,7 +13,23 @@ protocol BestSellersDataSourceModelProtocol {
     func booksWithGenre(genre: GenresModel, completion: (books: [BooksModel]?) -> Void)
 }
 
-class BestSellersDataSourceModel: BestSellersDataSourceModelProtocol {
+class BestSellersDataSourceProvider {
+    class func dataSourceModel() -> BestSellersDataSourceModelProtocol {
+        if Reachability.isConnectedToNetwork() {
+            return OnlineBestSellersDataSourceModel()
+        }
+        return OfflineBestSellersDataSourceModel()
+    }
+    
+    class func imageProvider() -> BestSellersImageProviderProtocol {
+        if Reachability.isConnectedToNetwork() {
+            return OnlineImageProvider()
+        }
+        return OfflineImageProvider()
+    }
+}
+
+class OnlineBestSellersDataSourceModel: BestSellersDataSourceModelProtocol {
     private var genres: [GenresModel]?
     private var books: [String: [BooksModel]] = [:]
     private let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
@@ -74,21 +90,11 @@ class BestSellersDataSourceModel: BestSellersDataSourceModelProtocol {
     }
 }
 
-class CachedBestSellersDataSourceModel: BestSellersDataSourceModelProtocol {
+class OfflineBestSellersDataSourceModel: BestSellersDataSourceModelProtocol {
     func genres(completion: (genres: [GenresModel]?) -> Void) {
         
     }
     func booksWithGenre(genre: GenresModel, completion: (books: [BooksModel]?) -> Void) {
         
-    }
-}
-
-
-class BestSellersDataSourceProvider {
-    class func bestSellersDataSourceModel() -> BestSellersDataSourceModelProtocol {
-        if Reachability.isConnectedToNetwork() {
-            return BestSellersDataSourceModel()
-        }
-        return CachedBestSellersDataSourceModel()
     }
 }
