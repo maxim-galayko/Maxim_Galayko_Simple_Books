@@ -46,6 +46,11 @@ class OfflineImageProvider: BestSellersImageProviderProtocol {
     }
     
     func fetchImage(link: String, completion: (image: UIImage?) -> Void) {
-        
+        if let imageData = NSData(contentsOfFile: BestSellersDirectoryPathProvider.imagePathForName(link)) {
+            dispatch_async(dispatch_get_main_queue()) {
+                completion(image: UIImage(data: imageData))
+            }
+        }
+        completion(image: nil)
     }
 }

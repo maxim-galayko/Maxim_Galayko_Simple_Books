@@ -41,11 +41,12 @@ class AuthViewController: UIViewController, FBSDKLoginButtonDelegate {
     // MARK: - FBSDKLoginButtonDelegate
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        genresButton.hidden = false
+        genresButton.hidden = result.token == nil
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         genresButton.hidden = true
+        BestSellersSavingService().removeAll()
     }
 }
 

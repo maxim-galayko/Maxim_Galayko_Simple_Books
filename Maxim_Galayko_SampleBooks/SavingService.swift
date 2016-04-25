@@ -14,8 +14,21 @@ protocol BestSellersSavingServiceProtocol {
     func removeAll()
 }
 
+struct BestSellersDirectoryPathProvider {
+    static var imagesDestinationDirectoryPath: String {
+        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! + "/booksImages"
+    }
+    
+    static func imagePathForName(name: String) -> String {
+        let path = BestSellersDirectoryPathProvider.imagesDestinationDirectoryPath
+        return "\(path)/\(name.hash)"
+    }
+}
+
 class BestSellersSavingService: BestSellersSavingServiceProtocol {
     private var manager = CoreDataManagerProvider.sharedManager
+    
+    private var imagesDirectoryToken: dispatch_once_t = 0
     
     func saveBook(book: BooksModel, withImage image: UIImage?, forGenre genre: GenresModel) {
         saveBook(book, forGenre: genre)
@@ -43,6 +56,17 @@ class BestSellersSavingService: BestSellersSavingServiceProtocol {
     }
     
     private func removeSavedImages() {
+        let path = BestSellersDirectoryPathProvider.imagesDestinationDirectoryPath
+        guard let content = try? NSFileManager.defaultManager().contentsOfDirectoryAtPath(path) else {
+            return
+        }
+        do {
+            for imageName in content {
+                try NSFileManager.defaultManager().removeItemAtPath("\(path)/\(imageName)")
+            }
+        } catch {
+            print("error removing images")
+        }
     }
     
     private func saveBook(book: BooksModel, forGenre genre: GenresModel) {
@@ -80,7 +104,24 @@ class BestSellersSavingService: BestSellersSavingServiceProtocol {
         }
     }
     
-    private func saveImage(image: UIImage, forBook book: BooksModel) {
+    private func createImagesDirectoryIfNotExists() {
+        do {
+            try NSFileManager.defaultManager().createDirectoryAtPath(BestSellersDirectoryPathProvider.imagesDestinationDirectoryPath, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            print("error creating directory")
+        }
+    }
     
+    private func saveImage(image: UIImage, forBook book: BooksModel) {
+        dispatch_once(&imagesDirectoryToken) {
+            self.createImagesDirectoryIfNotExists()
+        }
+        let path = BestSellersDirectoryPathProvider.imagePathForName(book.imageLink)
+        let imageData = UIImageJPEGRepresentation(image, 1)
+        do {
+            try imageData?.writeToFile(path, options: NSDataWritingOptions.DataWritingAtomic)
+        } catch {
+            print("error saving image \(error)")
+        }
     }
 }

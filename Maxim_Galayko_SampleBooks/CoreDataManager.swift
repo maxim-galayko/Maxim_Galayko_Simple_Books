@@ -56,10 +56,6 @@ class CoreDataManager: NSObject, CoreDataManagerProtocol {
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
     
-    lazy var applicationDocumentsDirectory: NSURL = {
-        return NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last!
-    }()
-    
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("\(storageName).sqlite")
@@ -76,6 +72,10 @@ class CoreDataManager: NSObject, CoreDataManagerProtocol {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.parentContext = self.savingManagedObjectContext
         return managedObjectContext
+    }()
+    
+    private lazy var applicationDocumentsDirectory: NSURL = {
+        return NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last!
     }()
     
     private lazy var savingManagedObjectContext: NSManagedObjectContext = {
