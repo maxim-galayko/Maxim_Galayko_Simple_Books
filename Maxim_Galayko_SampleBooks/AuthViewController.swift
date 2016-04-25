@@ -34,7 +34,7 @@ class AuthViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     private func updateDependencies() {
         authButton.delegate = self
-        genresButton.hidden = FBSDKAccessToken.currentAccessToken() == nil
+        genresButton.hidden = !FBSDKAccessToken.authorized()
     }
 
     

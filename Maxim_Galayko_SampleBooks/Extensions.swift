@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 extension UIImage {
     class func loadFromURL(url: NSURL, completion: (UIImage?) -> Void) {
@@ -35,5 +36,11 @@ extension NSCache {
                 removeObjectForKey(key)
             }
         }
+    }
+}
+
+extension FBSDKAccessToken {
+    class func authorized() -> Bool {
+        return FBSDKAccessToken.currentAccessToken() != nil
     }
 }

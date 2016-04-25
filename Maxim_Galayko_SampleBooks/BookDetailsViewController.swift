@@ -16,6 +16,7 @@ class BookDetailsViewController: UIViewController {
     @IBOutlet var authorNameLabel: UILabel!
     @IBOutlet var bookRankLabel: UILabel!
     @IBOutlet var amazonLinkLabel: UILabel!
+    @IBOutlet var toolbar: UIToolbar!
     
     var genre: GenresModel!
     var book: BooksModel!
@@ -25,22 +26,28 @@ class BookDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateDependencies()
         fillBookInfo()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    private func updateDependencies() {
+        title = "Details"
+        toolbar.hidden = !Reachability.isConnectedToNetwork()
     }
     
     private func fillBookInfo() {
         imageProvider.fetchImage(book) { image in
             self.coverImageView.image = image
         }
-        bookNameLabel.text = book.title
-        authorNameLabel.text = book.author
-        bookRankLabel.text = String(book.rank)
-        amazonLinkLabel.text = book.amazonLink
+        bookNameLabel.text = "name: \(book.title)"
+        authorNameLabel.text = "author: \(book.author)"
+        bookRankLabel.text = "rank: \(book.rank)"
+        amazonLinkLabel.text = "amazon: \(book.amazonLink)"
     }
     
     // MARK: - Actions

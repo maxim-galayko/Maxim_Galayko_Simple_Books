@@ -18,6 +18,7 @@ class BestSellersTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Best Sellers"
         prepareTableView()
         fetchBooks()
     }

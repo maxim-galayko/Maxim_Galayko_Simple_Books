@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hcI-7U-zbO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hcI-7U-zbO">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Auth View Controller-->
+        <!--Simple Books-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="AuthViewController" customModule="Maxim_Galayko_SampleBooks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="AuthViewController" customModule="Maxim_Galayko_SampleBooks" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWl-Dx-jbs" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="200" y="510" width="200" height="40"/>
+                                <rect key="frame" x="200" y="120" width="200" height="40"/>
                                 <color key="backgroundColor" red="0.25882352941176467" green="0.37254901960784315" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="mWz-u5-L2S"/>
@@ -26,7 +26,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDe-2Z-HXH">
-                                <rect key="frame" x="200" y="280" width="200" height="40"/>
+                                <rect key="frame" x="200" y="30" width="200" height="40"/>
                                 <color key="backgroundColor" red="0.25882352941176467" green="0.37254901960784315" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Show genres"/>
@@ -34,18 +34,28 @@
                                     <segue destination="idk-19-z1H" kind="show" id="0Z4-Js-RRR"/>
                                 </connections>
                             </button>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="books-stack" translatesAutoresizingMaskIntoConstraints="NO" id="xUd-BB-HFb">
+                                <rect key="frame" x="0.0" y="436" width="600" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="gTK-6W-Tbf"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="xUd-BB-HFb" secondAttribute="bottom" id="4qU-aB-7Rj"/>
                             <constraint firstItem="FWl-Dx-jbs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7IG-mL-dMJ"/>
                             <constraint firstItem="gDe-2Z-HXH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RHc-e7-aBe"/>
-                            <constraint firstItem="gDe-2Z-HXH" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="SqU-pW-beT"/>
+                            <constraint firstItem="FWl-Dx-jbs" firstAttribute="top" secondItem="gDe-2Z-HXH" secondAttribute="bottom" constant="50" id="T8k-Vc-94Z"/>
                             <constraint firstItem="FWl-Dx-jbs" firstAttribute="height" secondItem="gDe-2Z-HXH" secondAttribute="height" id="UTY-an-Z5V"/>
+                            <constraint firstItem="xUd-BB-HFb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Z0C-6p-wEl"/>
+                            <constraint firstAttribute="trailing" secondItem="xUd-BB-HFb" secondAttribute="trailing" id="Zjh-7Q-X5O"/>
                             <constraint firstItem="FWl-Dx-jbs" firstAttribute="width" secondItem="gDe-2Z-HXH" secondAttribute="width" id="czA-YA-aPh"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FWl-Dx-jbs" secondAttribute="bottom" constant="50" id="ls7-LL-fKt"/>
+                            <constraint firstItem="gDe-2Z-HXH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="yR3-u8-jbo"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UaK-9j-Wmv"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" title="Simple Books" id="UaK-9j-Wmv"/>
                     <connections>
                         <outlet property="authButton" destination="FWl-Dx-jbs" id="IUW-Oe-gs5"/>
                         <outlet property="genresButton" destination="gDe-2Z-HXH" id="Ysd-em-T3Y"/>
@@ -63,6 +73,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GenresTableViewCellStoryboardIdentifier" id="XUo-oh-mql" customClass="GenresTableViewCell" customModule="Maxim_Galayko_SampleBooks" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XUo-oh-mql" id="4NT-Ee-QNc">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2f-Uv-UFk">
+                                            <rect key="frame" x="20" y="11" width="560" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="x2f-Uv-UFk" firstAttribute="leading" secondItem="4NT-Ee-QNc" secondAttribute="leading" constant="20" symbolic="YES" id="FkN-Tr-CIr"/>
+                                        <constraint firstItem="x2f-Uv-UFk" firstAttribute="top" secondItem="4NT-Ee-QNc" secondAttribute="top" constant="11" id="Oxg-8s-FnB"/>
+                                        <constraint firstAttribute="bottom" secondItem="x2f-Uv-UFk" secondAttribute="bottom" constant="11" id="ss5-8K-L7L"/>
+                                        <constraint firstAttribute="trailing" secondItem="x2f-Uv-UFk" secondAttribute="trailing" constant="20" symbolic="YES" id="xNP-Be-J0h"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="x2f-Uv-UFk" id="XTu-Un-25D"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="idk-19-z1H" id="K2a-KO-ZUC"/>
                             <outlet property="delegate" destination="idk-19-z1H" id="sSZ-Zx-O9S"/>
@@ -155,27 +192,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="book name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azf-tR-Yal">
-                                <rect key="frame" x="20" y="324" width="560" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="book rank" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rwf-Jv-Yfs">
-                                <rect key="frame" x="20" y="382" width="560" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="20" y="376" width="560" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="author name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44V-cO-GVj">
-                                <rect key="frame" x="20" y="353" width="560" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="20" y="350" width="560" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="amazon url" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMa-8d-qAL">
-                                <rect key="frame" x="20" y="411" width="560" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="20" y="402" width="560" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -201,12 +232,25 @@
                                     <constraint firstAttribute="height" constant="200" id="AfJ-s9-dDr"/>
                                     <constraint firstAttribute="width" constant="200" id="R4N-Xf-voh"/>
                                 </constraints>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="AfJ-s9-dDr"/>
+                                    </mask>
+                                </variation>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="book name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azf-tR-Yal">
+                                <rect key="frame" x="20" y="324" width="560" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="44V-cO-GVj" firstAttribute="top" secondItem="azf-tR-Yal" secondAttribute="bottom" constant="8" symbolic="YES" id="62L-nN-VPr"/>
+                            <constraint firstItem="azf-tR-Yal" firstAttribute="leading" secondItem="rlx-1L-TKA" secondAttribute="trailing" constant="20" id="6Ar-1h-UlP"/>
                             <constraint firstItem="dMa-8d-qAL" firstAttribute="leading" secondItem="azf-tR-Yal" secondAttribute="leading" id="8EU-3v-H22"/>
+                            <constraint firstItem="azf-tR-Yal" firstAttribute="top" secondItem="rlx-1L-TKA" secondAttribute="top" id="Coa-ui-fVk"/>
                             <constraint firstItem="azf-tR-Yal" firstAttribute="top" secondItem="rlx-1L-TKA" secondAttribute="bottom" constant="30" id="D8B-dh-STS"/>
                             <constraint firstAttribute="trailing" secondItem="lQL-RS-Mbf" secondAttribute="trailing" id="E0x-eJ-mTC"/>
                             <constraint firstItem="dMa-8d-qAL" firstAttribute="top" secondItem="Rwf-Jv-Yfs" secondAttribute="bottom" constant="8" symbolic="YES" id="IO6-xe-nXw"/>
@@ -214,15 +258,39 @@
                             <constraint firstItem="rlx-1L-TKA" firstAttribute="centerX" secondItem="pQ2-6e-Gyb" secondAttribute="centerX" id="N3h-xd-Wgs"/>
                             <constraint firstAttribute="trailing" secondItem="azf-tR-Yal" secondAttribute="trailing" constant="20" symbolic="YES" id="PJJ-jz-Mrh"/>
                             <constraint firstItem="Rwf-Jv-Yfs" firstAttribute="trailing" secondItem="azf-tR-Yal" secondAttribute="trailing" id="Rtm-Sm-YKW"/>
+                            <constraint firstItem="azf-tR-Yal" firstAttribute="top" secondItem="rlx-1L-TKA" secondAttribute="top" id="UGl-mx-Q5h"/>
                             <constraint firstItem="Rwf-Jv-Yfs" firstAttribute="leading" secondItem="azf-tR-Yal" secondAttribute="leading" id="UmT-Ms-2dX"/>
                             <constraint firstItem="WHK-Ie-ql0" firstAttribute="top" secondItem="lQL-RS-Mbf" secondAttribute="bottom" id="VKB-Ow-VJ3"/>
+                            <constraint firstItem="rlx-1L-TKA" firstAttribute="leading" secondItem="pQ2-6e-Gyb" secondAttribute="leading" constant="20" symbolic="YES" id="gFw-Dl-qCE"/>
                             <constraint firstItem="rlx-1L-TKA" firstAttribute="top" secondItem="AzP-SO-xpi" secondAttribute="bottom" constant="30" id="huJ-HM-0Gg"/>
                             <constraint firstItem="44V-cO-GVj" firstAttribute="leading" secondItem="azf-tR-Yal" secondAttribute="leading" id="kG9-wN-TSv"/>
+                            <constraint firstItem="azf-tR-Yal" firstAttribute="leading" secondItem="rlx-1L-TKA" secondAttribute="trailing" constant="20" id="kjP-fg-tgo"/>
                             <constraint firstItem="azf-tR-Yal" firstAttribute="leading" secondItem="pQ2-6e-Gyb" secondAttribute="leading" constant="20" symbolic="YES" id="pYQ-Oa-aO5"/>
                             <constraint firstItem="lQL-RS-Mbf" firstAttribute="leading" secondItem="pQ2-6e-Gyb" secondAttribute="leading" id="qAI-78-2LI"/>
                             <constraint firstItem="dMa-8d-qAL" firstAttribute="trailing" secondItem="azf-tR-Yal" secondAttribute="trailing" id="uA3-ep-Q5X"/>
+                            <constraint firstItem="lQL-RS-Mbf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="dMa-8d-qAL" secondAttribute="bottom" priority="900" symbolic="YES" id="yb5-Rn-X0y"/>
                             <constraint firstItem="Rwf-Jv-Yfs" firstAttribute="top" secondItem="44V-cO-GVj" secondAttribute="bottom" constant="8" symbolic="YES" id="zKC-2O-1wK"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="gFw-Dl-qCE"/>
+                                <exclude reference="6Ar-1h-UlP"/>
+                                <exclude reference="Coa-ui-fVk"/>
+                                <exclude reference="UGl-mx-Q5h"/>
+                                <exclude reference="kjP-fg-tgo"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <exclude reference="N3h-xd-Wgs"/>
+                                <include reference="gFw-Dl-qCE"/>
+                                <include reference="Coa-ui-fVk"/>
+                                <exclude reference="D8B-dh-STS"/>
+                                <include reference="kjP-fg-tgo"/>
+                                <exclude reference="pYQ-Oa-aO5"/>
+                                <include reference="yb5-Rn-X0y"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="amazonLinkLabel" destination="dMa-8d-qAL" id="Fjj-mc-7PC"/>
@@ -230,6 +298,7 @@
                         <outlet property="bookNameLabel" destination="azf-tR-Yal" id="Qah-YG-rUL"/>
                         <outlet property="bookRankLabel" destination="Rwf-Jv-Yfs" id="8HG-WD-d5x"/>
                         <outlet property="coverImageView" destination="rlx-1L-TKA" id="S17-OB-US9"/>
+                        <outlet property="toolbar" destination="lQL-RS-Mbf" id="zjo-Fd-6FK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wMU-hV-fdm" sceneMemberID="firstResponder"/>
@@ -255,4 +324,7 @@
             <point key="canvasLocation" x="1901" y="312"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="books-stack" width="1600" height="465"/>
+    </resources>
 </document>

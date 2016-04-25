@@ -13,12 +13,11 @@ class GenresTableViewController: UITableViewController {
     private var bestSellersModel = BestSellersDataSourceProvider.dataSourceModel()
     private var dataSource: [GenresModel] = []
     
-    private let genresReuseIdentifier = "GenresReuseIdentifier"
     private let bestSellersSegueIdentifier = "GenresToBestSellersStoryboardSegueIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareTableView()
+        title = "Genres"
         fetchGenres()
     }
 
@@ -30,16 +29,14 @@ class GenresTableViewController: UITableViewController {
         bestSellersModel.genres { genres in
             if let genres = genres {
                 self.dataSource = genres
-                self.tableView.reloadData()
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
     
     // MARK: - Table view data source
-    
-    private func prepareTableView() {
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: genresReuseIdentifier)
-    }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -50,10 +47,10 @@ class GenresTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(genresReuseIdentifier, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(GenresTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! GenresTableViewCell
         cell.accessoryType = .DisclosureIndicator
 
-        cell.textLabel?.text = dataSource[indexPath.row].displayName
+        cell.titleLabel.text = dataSource[indexPath.row].displayName
         return cell
     }
     
